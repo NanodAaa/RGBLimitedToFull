@@ -48,9 +48,9 @@ if __name__ == '__main__':
     image_full = range_limited2full(image_limited, LIMITED_RANGE[0], LIMITED_RANGE[1])
     image_full_path = os.path.join(os.path.dirname(IMAGE_PATH), os.path.splitext(os.path.basename(IMAGE_PATH))[0] + '-full' + os.path.splitext(os.path.basename(IMAGE_PATH))[1])   
     cv2.imwrite(image_full_path, image_full)
-    """ cv2.imshow('Image Limited Range', image_limited)
+    cv2.imshow('Image Limited Range', image_limited)
     cv2.imshow('Image Full Range', image_full)
-    cv2.waitKey(0) """
+    cv2.waitKey(0)
     
     hist_b_limited, hist_g_limited, hist_r_limited, ylim_limited = generate_hist(image_limited)
     hist_b_full, hist_g_full, hist_r_full, ylim_full = generate_hist(image_full)
