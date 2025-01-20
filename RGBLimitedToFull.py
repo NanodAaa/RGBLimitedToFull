@@ -41,8 +41,9 @@ def range_limited2full(image_limited, lower_limit, upper_limit, lower_full, uppe
     return image_full
 
 if __name__ == '__main__':
-    IMAGE_PATH = r'D:\NanodAaa\WORK\CMS\RGBLimitedToFull\docs\day\AMBA0004.MP4_20250120_134845.174.png'
+    IMAGE_PATH = r'D:\NanodAaa\WORK\CMS\RGBLimitedToFull\docs\night\AMBA0004.MP4_20250120_135228.821.png'
     FULL_RANGE = (0, 255)
+    LIMITED_RANGE = (10, 165)
     
     image_limited = cv2.imread(IMAGE_PATH)
     cv2.imshow('Image Limited Range', image_limited)
@@ -52,13 +53,13 @@ if __name__ == '__main__':
     cv2.imshow('Image Gray', image_gray)
     
     limited_range = (np.min(image_gray), np.max(image_gray))
-    limited_range = (10, 165)
+    limited_range = LIMITED_RANGE
     print(limited_range)
     
     image_full = range_limited2full(image_limited, limited_range[0], limited_range[1], FULL_RANGE[0], FULL_RANGE[1])
     cv2.imshow('Image Full Range', image_full)
     hist_b_full, hist_g_full, hist_r_full, ylim_full = generate_hist(image_full)
-    image_full_path = os.path.join(os.path.dirname(IMAGE_PATH), os.path.splitext(os.path.basename(IMAGE_PATH))[0] + '-full' + os.path.splitext(os.path.basename(IMAGE_PATH))[1])   
+    image_full_path = os.path.join(os.path.dirname(IMAGE_PATH), os.path.splitext(os.path.basename(IMAGE_PATH))[0] + '-full' + os.path.splitext(os.path.basename(IMAGE_PATH))[1])
     cv2.imwrite(image_full_path, image_full)
     
     plt.figure(0)
@@ -79,6 +80,8 @@ if __name__ == '__main__':
     plt.plot(hist_r_full, color='red', label='R Channel')
     plt.xlim(FULL_RANGE)
     plt.ylim([0, ylim_limited])
-    
+
+    figure_path_hist = os.path.join(os.path.dirname(IMAGE_PATH), os.path.splitext(os.path.basename(IMAGE_PATH))[0] + '-hist' + os.path.splitext(os.path.basename(IMAGE_PATH))[1])
+    plt.savefig(figure_path_hist)
     plt.show()
     
